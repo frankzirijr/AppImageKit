@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -e
+set -xe
 set -E
 set -o functrace
 
@@ -19,12 +19,7 @@ if [ ! -f "$appimagetool" ] || [ ! -x "$appimagetool" ]; then
     exit 1
 fi
 
-if [ "$TRAVIS" == true ]; then
-  # TODO: find way to get colored log on Travis
-  log() { echo -e "\n$*\n"; }
-else
-  log() { echo -e "\n$(tput setaf 2)$(tput bold)$*$(tput sgr0)\n"; }
-fi
+log() { echo -e "\n$(tput setaf 2)$(tput bold)$*$(tput sgr0)\n"; }
 
 # debug log
 trap '[[ $FUNCNAME = exithook ]] || { last_lineno=$real_lineno; real_lineno=$LINENO; }' DEBUG
